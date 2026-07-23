@@ -1,0 +1,31 @@
+name: Feature request
+description: Propose an improvement with its financial, tax, or operational rationale.
+title: "[Feature]: "
+labels: [enhancement, triage]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed outcome
+    validations:
+      required: true
+  - type: textarea
+    id: rules
+    attributes:
+      label: Financial or tax-rule impact
+      description: State formulas, policy references, traceability, and rounding implications.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Prefer Given/When/Then and include boundary cases.
+    validations:
+      required: true

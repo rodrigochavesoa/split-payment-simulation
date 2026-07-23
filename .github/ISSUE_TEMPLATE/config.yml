@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/rodrigochavesoa/split-payment-simulation/security/advisories/new
+    about: Do not open public issues for suspected vulnerabilities.
+  - name: Support and usage questions
+    url: https://github.com/rodrigochavesoa/split-payment-simulation/discussions
+    about: Use GitHub Discussions for non-defect questions.

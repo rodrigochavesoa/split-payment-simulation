@@ -1,0 +1,6 @@
+# Default owner for all paths.
+* @rodrigochavesoa
+
+/src/main/java/br/com/splitpayment/finance/ @rodrigochavesoa
+/src/main/java/br/com/splitpayment/tax/ @rodrigochavesoa
+/.github/ @rodrigochavesoa

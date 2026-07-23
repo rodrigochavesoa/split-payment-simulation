@@ -1,0 +1,48 @@
+name: Bug report
+description: Report a reproducible defect. Do not include sensitive financial or customer data.
+title: "[Bug]: "
+labels: [bug, triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use synthetic values only. Security issues must be reported through SECURITY.md, not here.
+  - type: input
+    id: version
+    attributes:
+      label: Affected version or commit
+      placeholder: v1.0.0 or commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Use sanitized JSON and include exact expected and actual decimal values.
+    validations:
+      required: true
+  - type: dropdown
+    id: domain
+    attributes:
+      label: Affected area
+      options:
+        - API / ACL
+        - Tax Engine
+        - Finance Engine
+        - Decision Engine
+        - Documentation
+        - CI / Security
+    validations:
+      required: true
