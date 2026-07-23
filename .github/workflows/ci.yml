@@ -51,6 +51,8 @@ jobs:
     runs-on: ubuntu-24.04
     permissions:
       contents: read
+    env:
+      NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -62,11 +64,23 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: Cache OWASP Dependency-Check database
+        uses: actions/cache@v4
+        with:
+          path: ~/.dependency-check
+          key: owasp-db-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            owasp-db-
+
       - name: OWASP Dependency-Check
-        run: >-
-          mvn -B -ntp org.owasp:dependency-check-maven:12.2.2:check
-          -DfailOnCVSS=7
-          -Dformat=HTML
+        run: |
+          mvn -B -ntp org.owasp:dependency-check-maven:12.2.2:check \
+            -DfailOnCVSS=7 \
+            -Dformat=HTML \
+            -DdataDirectory="$HOME/.dependency-check" \
+            -Dnvd.api.delay=6000 \
+            -Dnvd.api.max.retry.count=10 \
+            ${NVD_API_KEY:+-Dnvd.api.key="$NVD_API_KEY"}
 
       - name: Upload dependency report
         if: always()
