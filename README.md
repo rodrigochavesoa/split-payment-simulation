@@ -12,6 +12,34 @@ Simulador determinístico de impacto de caixa para cenários de Split Payment. A
 
 **[Abrir o Guia de Início Rápido da V1.0](QUICKSTART_V1.md)** — suba a API, execute os `cURL`s e compare os resultados `CONFORTAVEL`, `ZONA_DE_ATENCAO` e `ALERTA_CRITICO`.
 
+## Dashboard web (V1.0)
+
+Interface React + TypeScript que consome a API real — **sem recalcular fórmulas no navegador**. Os presets `Confortável`, `Atenção` e `Crítico` preenchem o formulário; o veredito (`readinessStatus`), `cashGap` e reajuste vêm sempre do motor Java.
+
+![Dashboard do simulador — cenário Confortável](assets/dashboard-confortavel.png)
+
+### Ativar o dashboard (dependências já instaladas)
+
+1. **Terminal 1 — API Spring** (raiz do repositório):
+
+   ```bash
+   mvn -B -ntp spring-boot:run
+   ```
+
+   Aguarde a API em `http://localhost:8080`.
+
+2. **Terminal 2 — dashboard Vite**:
+
+   ```bash
+   cd frontend
+   cp -n .env.example .env.local   # só na primeira vez
+   npm run dev
+   ```
+
+3. Abra **`http://localhost:5173`**, escolha um preset (`Confortável`, `Atenção` ou `Crítico`) e clique em **Simular impacto**.
+
+Documentação técnica do frontend: [frontend/README.md](frontend/README.md). Instalação de Node/Java/Maven: `./scripts/verify-dev-env.sh`.
+
 ## Aviso importante
 
 Os resultados produzidos por este projeto são simulações baseadas nos parâmetros, regras e versões de regras informados pelo usuário. Eles não constituem cálculo fiscal oficial, declaração de conformidade, aconselhamento jurídico, contábil ou tributário, nem garantia de que uma operação atende à legislação aplicável. Antes de tomar decisões financeiras, fiscais ou operacionais, os resultados devem ser revisados e validados por profissionais qualificados, considerando a legislação e as orientações oficiais vigentes.
@@ -41,6 +69,7 @@ Para um fluxo prático com 3 cenários de risco (`CONFORTAVEL`, `ZONA_DE_ATENCAO
 O fluxo é `API -> ACL -> Tax Engine -> Finance Engine -> Decision Engine`. Consulte:
 
 - [QUICKSTART_V1.md](QUICKSTART_V1.md): guia prático de uso da API Sandbox V1.0.
+- [frontend/README.md](frontend/README.md): dashboard web V1.0 (React + Vite).
 - [VISION.md](VISION.md): visão do produto, escopo da V1.0 e evolução planejada para a V2.0.
 - [ARCHITECTURE.md](ARCHITECTURE.md): arquitetura, fórmulas, matriz de decisão e catálogo de erros.
 - [RELEASE_NOTES.md](RELEASE_NOTES.md): escopo e limitações da Release 1.0.
