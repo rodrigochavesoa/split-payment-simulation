@@ -40,3 +40,9 @@ Tipos permitidos: `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `build`, `c
 ## Revisão
 
 Toda alteração exige CI verde e aprovação dos CODEOWNERS aplicáveis. Mudanças de fórmula, arredondamento, critérios de risco, contrato público ou código de erro requerem revisão de mantenedores do domínio e atualização de release notes.
+
+## Secrets de CI (maintainers)
+
+O job OWASP Dependency-Check aceita, de forma opcional, a secret **`NVD_API_KEY`** (Actions → Secrets and variables → Actions). Obtenha a chave gratuita em [NVD — Request an API Key](https://nvd.nist.gov/developers/request-an-api-key). Sem ela o CI continua funcionando; com ela, reduz falhas por rate limit (HTTP 429) ao atualizar a base de CVEs.
+
+CodeQL (Java + TypeScript) e o pipeline de Release **não usam** essa secret e **não exigem** alteração em Releases ou Packages do GitHub.
