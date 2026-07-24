@@ -46,6 +46,29 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+  frontend-build:
+    name: Frontend build
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build dashboard
+        run: npm run build
+
   dependency-check:
     name: Dependency vulnerability scan
     runs-on: ubuntu-24.04
