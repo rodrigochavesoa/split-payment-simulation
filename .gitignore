@@ -43,3 +43,6 @@ secrets/
 coverage/
 .scannerwork/
 dependency-check-report.*
+
+#documents
+docs/
