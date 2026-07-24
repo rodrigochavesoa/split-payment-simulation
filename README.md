@@ -16,7 +16,11 @@ Simulador determinístico de impacto de caixa para cenários de Split Payment. A
 
 Interface React + TypeScript que consome a API real — **sem recalcular fórmulas no navegador**. Os presets `Confortável`, `Atenção` e `Crítico` preenchem o formulário; o veredito (`readinessStatus`), `cashGap` e reajuste vêm sempre do motor Java.
 
-![Dashboard do simulador — cenário Confortável](assets/dashboard-confortavel.png)
+<p align="center">
+  <img src="./assets/dashboard-confortavel.png" alt="Dashboard do simulador — cenário Confortável (baixo risco)" width="920" />
+</p>
+
+<p align="center"><em>Cenário Confortável — operação confortável, Cash Gap R$ 0 e reajuste estimado 0%.</em></p>
 
 ### Ativar o dashboard (dependências já instaladas)
 

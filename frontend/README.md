@@ -2,7 +2,11 @@
 
 Interface React + TypeScript independente do serviço Spring. Ela não reproduz fórmulas financeiras: monta o contrato V1 e apenas apresenta a resposta devolvida pelo motor.
 
-![Dashboard do simulador — cenário Crítico](assets/dashboard-critico.png)
+<p align="center">
+  <img src="./assets/dashboard-critico.png" alt="Dashboard do simulador — cenário Crítico (alto risco)" width="920" />
+</p>
+
+<p align="center"><em>Cenário Crítico — alerta de ruptura de caixa, Cash Gap R$ 1.300 e reajuste estimado 54,17%.</em></p>
 
 ## Ativar o dashboard (dependências já instaladas)
 
