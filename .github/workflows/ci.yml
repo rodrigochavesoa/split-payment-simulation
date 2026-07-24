@@ -91,19 +91,34 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.dependency-check
-          key: owasp-db-${{ hashFiles('**/pom.xml') }}
+          key: owasp-db-v2-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
+            owasp-db-v2-
             owasp-db-
 
       - name: OWASP Dependency-Check
         run: |
-          mvn -B -ntp org.owasp:dependency-check-maven:12.2.2:check \
-            -DfailOnCVSS=7 \
-            -Dformat=HTML \
-            -DdataDirectory="$HOME/.dependency-check" \
-            -Dnvd.api.delay=6000 \
-            -Dnvd.api.max.retry.count=10 \
-            ${NVD_API_KEY:+-Dnvd.api.key="$NVD_API_KEY"}
+          set -euo pipefail
+          common_args=(
+            -DfailOnCVSS=7
+            -Dformat=HTML
+            -DdataDirectory="$HOME/.dependency-check"
+            -Dnvd.api.delay=6000
+            -Dnvd.api.max.retry.count=10
+          )
+          run_check() {
+            mvn -B -ntp org.owasp:dependency-check-maven:12.2.2:check \
+              "${common_args[@]}" \
+              "$@"
+          }
+          if [ -n "${NVD_API_KEY:-}" ]; then
+            if ! run_check -Dnvd.api.key="$NVD_API_KEY"; then
+              echo "::warning::NVD_API_KEY failed (invalid key or NVD outage). Retrying with cached database only."
+              run_check -Dnvd.api.check.validforhours=8760
+            fi
+          else
+            run_check
+          fi
 
       - name: Upload dependency report
         if: always()

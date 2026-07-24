@@ -45,4 +45,6 @@ Toda alteração exige CI verde e aprovação dos CODEOWNERS aplicáveis. Mudan�
 
 O job OWASP Dependency-Check aceita, de forma opcional, a secret **`NVD_API_KEY`** (Actions → Secrets and variables → Actions). Obtenha a chave gratuita em [NVD — Request an API Key](https://nvd.nist.gov/developers/request-an-api-key). Sem ela o CI continua funcionando; com ela, reduz falhas por rate limit (HTTP 429) ao atualizar a base de CVEs.
 
+Se o CI falhar com **`Invalid API Key`**, a secret está incorreta (espaços extras, key revogada ou valor incompleto). Gere uma nova key no NIST, atualize a secret `NVD_API_KEY` no GitHub e reexecute o workflow. O CI tenta fallback com cache local quando a key falha, mas a key válida continua sendo a correção definitiva.
+
 CodeQL (Java + TypeScript) e o pipeline de Release **não usam** essa secret e **não exigem** alteração em Releases ou Packages do GitHub.
