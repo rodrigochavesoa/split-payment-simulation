@@ -13,7 +13,7 @@
 
     <groupId>br.com.splitpayment</groupId>
     <artifactId>split-payment-simulation</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <name>split-payment-simulation</name>
     <description>Deterministic cash-flow impact simulator for Split Payment scenarios</description>
 

@@ -1,44 +1,57 @@
-# Release Notes — Cash Flow Impact Simulation Engine 1.0
+# Release Notes — split-payment-simulation 0.2.0
 
-## Release 1.0
+## Release 0.2.0
 
-**Status:** aprovado para encerramento do ciclo de desenvolvimento e validação de release.
+**Status:** pronta para validação de adoção da V1.0 com dashboard web e pipeline de segurança reforçado.
 
-## Entregas incluídas
+## Entregas incluídas nesta versão
 
-- API REST para simulação de impacto de Split Payment em lote.
-- ACL com validação de valores decimais recebidos como strings e conversão segura para `BigDecimal`.
-- Tax Engine parametrizado por operação, com débito bruto, tributo já extinto e percentual elegível ao Split.
-- Finance Engine com perda do float, benefício de postergação, bases de contagem 30/360/365, ICOF operacional e de liquidez.
-- Projeções comparativas de caixa Base e Split, com identificação do menor saldo projetado.
-- Cálculo de gap de caixa, margem incremental \(\kappa\) e reajuste mínimo estimado.
-- Decision Engine com classificação `CONFORTAVEL`, `ZONA_DE_ATENCAO` e `ALERTA_CRITICO`.
-- Rastreabilidade via `rulesetVersion` e `taxPolicyReference` retornados no `auditTrail`.
-- Catálogo de erros financeiros `FIN-001`, `FIN-002` e `FIN-003`.
-- Testes unitários, testes de borda HTTP, teste E2E real e Golden Case de regressão financeira.
+### Dashboard web (V1.0)
 
-## Contrato de precisão
+- SPA React + TypeScript + Vite em `frontend/`, independente do serviço Spring.
+- Formulário com presets **Confortável**, **Atenção** e **Crítico** alinhados ao Quick Start.
+- Consumo exclusivo de `POST /api/v1/simulations/float-impact` — sem recálculo de fórmulas no navegador.
+- Proxy Vite em desenvolvimento; produção via mesma origem ou `VITE_API_BASE_URL`.
 
-Todos os valores monetários, percentuais e taxas devem ser enviados como strings decimais com ponto, por exemplo `"1250.50"` e `"0.28"`. A API rejeita vírgula, notação científica e tipos JSON numéricos nos campos protegidos. O núcleo usa `BigDecimal` com saída em quatro casas e arredondamento `HALF_EVEN`.
+### Documentação e onboarding
 
-## Limitações conhecidas e fora de escopo
+- `QUICKSTART_V1.md` com três cenários práticos de risco.
+- README raiz e `frontend/README.md` com passo a passo de ativação e screenshots.
 
-Esta Release 1.0 é um simulador financeiro parametrizado; ela **não** constitui cálculo fiscal legal automatizado. Em especial:
+### DevSecOps e CI
 
-- Não calcula créditos tributários complexos, compensações, regimes especiais, isenções ou regras legais específicas de IBS/CBS.
-- Não interpreta `taxPolicyReference`; a referência é somente metadado de auditoria.
-- Não consulta legislação, serviços governamentais, alíquotas externas, índices de juros ou calendários fiscais.
-- Assume uma alíquota efetiva, um percentual elegível ao Split e um valor já extinto informados por operação.
-- Não suporta múltiplas moedas, conversão cambial ou exposição a variação de câmbio.
-- Reconhece receitas líquidas e custos operacionais na data de liquidação; não há, nesta versão, datas separadas de vencimento para recebimentos, custos variáveis ou custos fixos.
-- No ledger Base, a saída tributária usa o valor simulado como retido pelo Split; resíduos tributários fora da parcela elegível exigem evolução posterior do contrato e do modelo de fluxo.
-- Não implementa autenticação, autorização, persistência de simulações, trilha de auditoria imutável, idempotência ou observabilidade operacional.
-- Não substitui validação contábil, jurídica, tributária ou financeira especializada.
+- Job **Frontend build** (`npm ci` + `npm run build`) no GitHub Actions.
+- CodeQL SAST para **Java** e **JavaScript/TypeScript**.
+- OWASP Dependency-Check com cache e suporte opcional a `NVD_API_KEY`.
+- Dependabot configurado para ignorar bump major de Spring Boot.
+
+### Infraestrutura de release
+
+- Imagem Docker da API publicada em `ghcr.io/rodrigochavesoa/split-payment-simulation` com tags `:latest`, `:v0.2.0` e SHA do commit.
+- Dockerfile corrigido (Maven no build + runtime Distroless).
+
+## Herança da Release 0.1.0 (motor Java)
+
+Esta versão **mantém integralmente** o núcleo entregue em 0.1.0:
+
+- Tax Engine, Finance Engine e Decision Engine determinísticos.
+- Golden Case, testes E2E e contrato de precisão decimal (`BigDecimal`, strings JSON).
+- Limitações de escopo: simulador parametrizado, sem cálculo fiscal legal automatizado.
+
+Consulte `ARCHITECTURE.md` e as notas de limitação da V1.0 para o detalhe completo das regras financeiras.
+
+## Limitações conhecidas (0.2.0)
+
+- A imagem GHCR empacota **somente a API Java**; o dashboard é publicado separadamente (`frontend/dist/`).
+- Sandbox V1.0 continua **sem autenticação** por design.
+- O dashboard não substitui validação contábil, jurídica, tributária ou financeira especializada.
 
 ## Orientação de adoção
 
-Use a `rulesetVersion` para identificar a hipótese de negócio aplicada ao cenário e `taxPolicyReference` para relacionar cada operação à política tributária que fundamentou os dados de entrada. Para qualquer alteração de fórmula, limite ou arredondamento, atualize a documentação, os testes unitários e o Golden Case no mesmo pull request.
+1. API: `docker pull ghcr.io/rodrigochavesoa/split-payment-simulation:v0.2.0` (ou `:latest`).
+2. Dashboard: `cd frontend && npm ci && npm run build` — sirva `dist/` com proxy de `/api` para o Spring.
+3. Desenvolvimento local: ver README raiz (dois terminais — `mvn spring-boot:run` + `npm run dev`).
 
-## Official Release 1.0 Sign-off
+## Sign-off
 
-O escopo planejado para a Release 1.0 foi concluído: os três motores de domínio, a ACL, os cálculos de caixa e precificação, a matriz de decisão, a governança de erros, a rastreabilidade e a regressão financeira estão entregues. A versão está pronta para validação final do negócio e preparação do processo formal de release.
+Release 0.2.0 consolida o marco de produto **API Sandbox + Dashboard V1.0**, com pipeline CI/CD e segurança alinhados ao uso público do repositório.
