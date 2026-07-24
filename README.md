@@ -6,6 +6,12 @@
 
 Simulador determinístico de impacto de caixa para cenários de Split Payment. A aplicação calcula eventos tributários parametrizados, perda do float, cobertura de obrigações fixas, projeções de caixa, gap de liquidez, reajuste estimado de preço e classificação de risco.
 
+## Quick Start (V1.0)
+
+**Entenda e teste a API em menos de 5 minutos rodando 3 cenários práticos de risco.**
+
+**[Abrir o Guia de Início Rápido da V1.0](QUICKSTART_V1.md)** — suba a API, execute os `cURL`s e compare os resultados `CONFORTAVEL`, `ZONA_DE_ATENCAO` e `ALERTA_CRITICO`.
+
 ## Aviso importante
 
 Os resultados produzidos por este projeto são simulações baseadas nos parâmetros, regras e versões de regras informados pelo usuário. Eles não constituem cálculo fiscal oficial, declaração de conformidade, aconselhamento jurídico, contábil ou tributário, nem garantia de que uma operação atende à legislação aplicável. Antes de tomar decisões financeiras, fiscais ou operacionais, os resultados devem ser revisados e validados por profissionais qualificados, considerando a legislação e as orientações oficiais vigentes.
@@ -28,10 +34,13 @@ docker compose up --build
 
 A API é exposta em `http://localhost:8080`. Valores monetários e percentuais devem ser enviados como strings decimais com ponto, nunca como `float` ou `double` JSON.
 
+Para um fluxo prático com 3 cenários de risco (`CONFORTAVEL`, `ZONA_DE_ATENCAO`, `ALERTA_CRITICO`), veja o [Quick Start Guide V1.0](QUICKSTART_V1.md).
+
 ## Arquitetura e regras
 
 O fluxo é `API -> ACL -> Tax Engine -> Finance Engine -> Decision Engine`. Consulte:
 
+- [QUICKSTART_V1.md](QUICKSTART_V1.md): guia prático de uso da API Sandbox V1.0.
 - [VISION.md](VISION.md): visão do produto, escopo da V1.0 e evolução planejada para a V2.0.
 - [ARCHITECTURE.md](ARCHITECTURE.md): arquitetura, fórmulas, matriz de decisão e catálogo de erros.
 - [RELEASE_NOTES.md](RELEASE_NOTES.md): escopo e limitações da Release 1.0.
