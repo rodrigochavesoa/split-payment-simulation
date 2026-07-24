@@ -32,6 +32,7 @@ A API é exposta em `http://localhost:8080`. Valores monetários e percentuais d
 
 O fluxo é `API -> ACL -> Tax Engine -> Finance Engine -> Decision Engine`. Consulte:
 
+- [VISION.md](VISION.md): visão do produto, escopo da V1.0 e evolução planejada para a V2.0.
 - [ARCHITECTURE.md](ARCHITECTURE.md): arquitetura, fórmulas, matriz de decisão e catálogo de erros.
 - [RELEASE_NOTES.md](RELEASE_NOTES.md): escopo e limitações da Release 1.0.
 - [CONTRIBUTING.md](CONTRIBUTING.md): padrão de contribuição e testes obrigatórios.
