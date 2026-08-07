@@ -154,7 +154,7 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4.37.3
+        uses: github/codeql-action/init@v4.37.6
         with:
           languages: java-kotlin, javascript-typescript
           build-mode: none
@@ -169,4 +169,4 @@ jobs:
           npm run build
 
       - name: Analyze
-        uses: github/codeql-action/analyze@v4.37.3
+        uses: github/codeql-action/analyze@v4.37.6
